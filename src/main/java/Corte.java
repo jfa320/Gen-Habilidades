@@ -10,4 +10,9 @@ public class Corte implements Habilidad{
 		return -10;
 	}
 
+	@Override
+	public String getDescripcion() {
+		return "Corte | Ataque sencillo que quita -10 de vida";
+	}
+
 }
