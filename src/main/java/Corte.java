@@ -4,30 +4,28 @@ import tp.pp2.rpg.experience.core.entidades.BatallaContexto;
 import tp.pp2.rpg.experience.core.entidades.Personaje;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
-public class Corte {
-	public class Herir implements Habilidad {
+public class Corte implements Habilidad {
 
-		@Override
-		public void realizar(BatallaContexto contexto) {
-			Map<Personaje, Integer> vidas = contexto.getVidas();
-			for (Map.Entry<Personaje, Integer> entry : vidas.entrySet()) {
-			    Personaje personaje = entry.getKey();
-			    Integer vida = entry.getValue();
-			    if (personaje != contexto.getTurno()) {
-			        vidas.put(personaje, vida - 20);
-			    }
+	@Override
+	public void realizar(BatallaContexto contexto) {
+		Map<Personaje, Integer> vidas = contexto.getVidas();
+		for (Map.Entry<Personaje, Integer> entry : vidas.entrySet()) {
+			Personaje personaje = entry.getKey();
+			Integer vida = entry.getValue();
+			if (personaje != contexto.getTurno()) {
+				vidas.put(personaje, vida - 20);
 			}
 		}
-
-		@Override
-		public String getDescripcion() {
-			return "Realiza danio de 20";
-		}
-
-		@Override
-		public String getNombre() {
-			return "Corte";
-		}
-
 	}
+
+	@Override
+	public String getDescripcion() {
+		return "Realiza danio de 20";
+	}
+
+	@Override
+	public String getNombre() {
+		return "Corte";
+	}
+
 }
