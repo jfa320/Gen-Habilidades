@@ -1,31 +1,39 @@
 import java.util.Map;
+import java.util.Properties;
 
-import tp.pp2.rpg.experience.core.entidades.BatallaContexto;
-import tp.pp2.rpg.experience.core.entidades.Personaje;
+import tp.pp2.rpg.experience.core.entidades.Batalla;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
 public class Corte implements Habilidad {
 
 	@Override
-	public void realizar(BatallaContexto contexto) {
-		Map<Personaje, Integer> vidas = contexto.getVidas();
-		for (Map.Entry<Personaje, Integer> entry : vidas.entrySet()) {
-			Personaje personaje = entry.getKey();
-			Integer vida = entry.getValue();
-			if (personaje != contexto.getTurno()) {
-				vidas.put(personaje, vida - 20);
+	public void realizar(Batalla batalla) {
+		String personajeActual = batalla.getPersonajeActual();
+		Integer danio = 20;
+		Map<String, Properties> personajesAux = batalla.getPersonajes();
+		for (Map.Entry<String, Properties> entry : personajesAux.entrySet()) {
+			String key = entry.getKey();
+			Properties properties = entry.getValue();
+			if (!key.equals(personajeActual)) {
+				String vidaStr = properties.getProperty("vida");
+				int vida = Integer.parseInt(vidaStr);
+				int nuevaVida = vida - danio;
+				properties.setProperty("vida", String.valueOf(nuevaVida));
 			}
 		}
-	}
-
-	@Override
-	public String getDescripcion() {
-		return "Realiza danio de 20";
+		batalla.setPersonajes(personajesAux);
 	}
 
 	@Override
 	public String getNombre() {
 		return "Corte";
 	}
+	
+	@Override
+	public String getDescripcion() {
+		return "Realiza danio de 20";
+	}
+
+	
 
 }

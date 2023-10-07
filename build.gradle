@@ -25,7 +25,7 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:31.1-jre'
-	implementation 'com.github.jfa320:tp-pp2-rpg-experience-core:642d29bb69'
+	implementation 'com.github.jfa320:tp-pp2-rpg-experience-core:17cfdcb5ba'
 	
 }
 
