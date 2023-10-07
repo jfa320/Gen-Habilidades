@@ -32,7 +32,7 @@ public class Atacar implements Habilidad {
 
 	@Override
 	public String getDescripcion() {
-		return "Infringe 800 puntos de daño según la caracteristica de ataque del personaje";
+		return "Infringe puntos de daño según la caracteristica de ataque del personaje";
 	}
 
 }
