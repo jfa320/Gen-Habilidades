@@ -13,19 +13,18 @@ public class Debilitar implements Habilidad {
 
 	private void realizarDebilitamiento(Batalla batalla) {
 		String personajeActual = batalla.getPersonajeActual();
-		Map<String, Properties> personajes=batalla.getPersonajes();
-		Integer danio = Integer.valueOf(personajes.get(personajeActual).getProperty("ataque"));
 		Map<String, Properties> personajesAux = batalla.getPersonajes();
 		for (Map.Entry<String, Properties> entry : personajesAux.entrySet()) {
 			String key = entry.getKey();
 			Properties properties = entry.getValue();
 			if (!key.equals(personajeActual)) {
-				String vidaStr = properties.getProperty("vida");
-				int vida = Integer.parseInt(vidaStr);
-				int nuevaVida = vida - danio;
-				properties.setProperty("vida", String.valueOf(nuevaVida));
+				String ataqueStr = properties.getProperty("ataque");
+				int ataque = Integer.parseInt(ataqueStr);
+				int nuevoAtaque = (int) Math.ceil(ataque/2.0);
+				properties.setProperty("ataque", String.valueOf(nuevoAtaque));
 			}
 		}
+		batalla.setPersonajes(personajesAux);
 	}
 
 
