@@ -5,11 +5,9 @@ import tp.pp2.rpg.experience.core.entidades.Batalla;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
 public class Debilitar implements Habilidad {
-	private Map<String, Integer> ataqueInicial;
 
 	@Override
 	public void realizar(Batalla batalla) {
-		guardarAtaqueInicial(batalla); // por si es necesario recuperar despues de ciertos turnos
 		realizarDebilitamiento(batalla);
 	}
 
@@ -30,15 +28,6 @@ public class Debilitar implements Habilidad {
 		}
 	}
 
-	private void guardarAtaqueInicial(Batalla batalla) {
-		for (Map.Entry<String, Properties> entry : batalla.getPersonajes().entrySet()) {
-			String nombre = entry.getKey();
-			Properties propiedades = entry.getValue();
-			String ataqueString = propiedades.getProperty("ataque");
-			int ataque = Integer.parseInt(ataqueString);
-			ataqueInicial.put(nombre, ataque);
-		}
-	}
 
 	@Override
 	public String getNombre() {
