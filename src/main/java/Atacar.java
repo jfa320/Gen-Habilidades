@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 
@@ -8,21 +9,20 @@ public class Atacar implements Habilidad {
 
 	@Override
 	public void realizar(Batalla batalla) {
-		String personajeActual = batalla.getPersonajeActual();
-		Integer danio = Integer.valueOf(batalla.getPersonajes().get(personajeActual).getProperty("ataque"));
-		Map<String, Properties> personajesAux = batalla.getPersonajes();
-		for (Map.Entry<String, Properties> entry : personajesAux.entrySet()) {
-			String key = entry.getKey();
-			Properties properties = entry.getValue();
-			if (!key.equals(personajeActual)) {
-				String vidaStr = properties.getProperty("vida");
+		int personajeActual = batalla.getPersonajeActual();
+		int danio = Integer.valueOf(batalla.getPersonajes().get(personajeActual).getProperty("ataque"));
+		ArrayList<Properties> personajesAux = batalla.getPersonajes();
+		int id=0;
+		for (Properties property : personajesAux) {
+			if (id==personajeActual) {
+				String vidaStr = property.getProperty("vida");
 				int vida = Integer.parseInt(vidaStr);
 				int nuevaVida = vida - danio;
-				properties.setProperty("vida", String.valueOf(nuevaVida));
+				property.setProperty("vida", String.valueOf(nuevaVida));
 			}
+			id++;
 		}
 		batalla.setPersonajes(personajesAux);
-
 	}
 
 	@Override
