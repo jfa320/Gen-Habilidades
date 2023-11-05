@@ -13,13 +13,13 @@ public class Atacar implements Habilidad {
 		Map<String, Properties> caracteristicas = batalla.getCaracteristicas();
 		for (Map.Entry<String, Properties> entry : caracteristicas.entrySet()) {
             String nombrePersonaje = entry.getKey();
-            Properties caracteristicasPersonaje = entry.getValue();
-            // Verificar si la clave es "fabi"
             if (!nombrePersonaje.equals(personajeActual)) {
+                Properties caracteristicasPersonaje = entry.getValue();
             	String vidaStr = caracteristicasPersonaje.getProperty("vida");
 				int vida = Integer.parseInt(vidaStr);
 				int nuevaVida = vida - danio;
 				caracteristicasPersonaje.setProperty("vida", String.valueOf(nuevaVida));
+				caracteristicas.put(nombrePersonaje, caracteristicasPersonaje);
             }
         }
 		batalla.setCaracteristicas(caracteristicas);
