@@ -8,25 +8,24 @@ public class Debilitar implements Habilidad {
 
 	@Override
 	public void realizar(Batalla batalla) {
-		realizarDebilitamiento(batalla);
-	}
-
-	private void realizarDebilitamiento(Batalla batalla) {
 		String personajeActual = batalla.getPersonajeActual();
-		Map<String, Properties> personajesAux = batalla.getPersonajes();
-		for (Map.Entry<String, Properties> entry : personajesAux.entrySet()) {
-			String key = entry.getKey();
-			Properties properties = entry.getValue();
-			if (!key.equals(personajeActual)) {
-				String ataqueStr = properties.getProperty("ataque");
-				int ataque = Integer.parseInt(ataqueStr);
+		Map<String, Properties> caracteristicas = batalla.getCaracteristicas();
+		
+		for (Map.Entry<String, Properties> entry : caracteristicas.entrySet()) {
+            String nombrePersonaje = entry.getKey();
+            if (!nombrePersonaje.equals(personajeActual)) {
+                Properties caracteristicasPersonaje = entry.getValue();
+            	String ataquePersonajeEnemigo = caracteristicasPersonaje.getProperty("ataque");
+            	int ataque = Integer.parseInt(ataquePersonajeEnemigo);
 				int nuevoAtaque = (int) Math.ceil(ataque/2.0);
-				properties.setProperty("ataque", String.valueOf(nuevoAtaque));
-			}
-		}
-		batalla.setPersonajes(personajesAux);
+				caracteristicasPersonaje.setProperty("ataque", String.valueOf(nuevoAtaque));
+				caracteristicas.put(nombrePersonaje, caracteristicasPersonaje);
+            }
+        }
+		
+		batalla.setCaracteristicas(caracteristicas);
 	}
-
+	
 
 	@Override
 	public String getNombre() {
