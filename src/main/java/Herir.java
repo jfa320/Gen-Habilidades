@@ -4,13 +4,13 @@ import java.util.Properties;
 import tp.pp2.rpg.experience.core.entidades.Batalla;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
-public class AtacarGG implements Habilidad{
+public class Herir implements Habilidad{
 	Batalla batalla;
 	
 	@Override
 	public void realizar() {
 		String personajeActual = batalla.getPersonajeActual();
-		int danio = Integer.valueOf(batalla.getCaracteristicasPersonaje(personajeActual).getProperty("ataque"));
+		int danio = 10;
 		Map<String, Properties> caracteristicas = batalla.getCaracteristicas();
 		for (Map.Entry<String, Properties> entry : caracteristicas.entrySet()) {
             String nombrePersonaje = entry.getKey();
@@ -28,12 +28,12 @@ public class AtacarGG implements Habilidad{
 
 	@Override
 	public String getNombre() {
-		return "Atacar";
+		return "Herir";
 	}
 
 	@Override
 	public String getDescripcion() {
-		return "Infringe puntos de daño segun la caracteristica de ataque del personaje";
+		return "Infringe 10 puntos de daño al personaje rival";
 	}
 
 	@Override
