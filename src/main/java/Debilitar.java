@@ -27,8 +27,7 @@ public class Debilitar implements Habilidad {
 		}
 		batalla.setCaracteristicas(personajesAux);
 	}
-
-
+	
 	@Override
 	public String getNombre() {
 		return "Debilitar";
