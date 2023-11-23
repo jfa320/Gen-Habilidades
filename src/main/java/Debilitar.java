@@ -5,28 +5,29 @@ import tp.pp2.rpg.experience.core.entidades.Batalla;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
 public class Debilitar implements Habilidad {
-
+	private Batalla batalla;
+	
 	@Override
-	public void realizar(Batalla batalla) {
+	public void realizar() {
+		realizarDebilitamiento();
+	}
+
+	private void realizarDebilitamiento() {
 		String personajeActual = batalla.getPersonajeActual();
-		Map<String, Properties> caracteristicas = batalla.getCaracteristicas();
-		
-		for (Map.Entry<String, Properties> entry : caracteristicas.entrySet()) {
-            String nombrePersonaje = entry.getKey();
-            if (!nombrePersonaje.equals(personajeActual)) {
-                Properties caracteristicasPersonaje = entry.getValue();
-            	String ataquePersonajeEnemigo = caracteristicasPersonaje.getProperty("ataque");
-            	int ataque = Integer.parseInt(ataquePersonajeEnemigo);
+		Map<String, Properties> personajesAux = batalla.getCaracteristicas();
+		for (Map.Entry<String, Properties> entry : personajesAux.entrySet()) {
+			String key = entry.getKey();
+			Properties properties = entry.getValue();
+			if (!key.equals(personajeActual)) {
+				String ataqueStr = properties.getProperty("ataque");
+				int ataque = Integer.parseInt(ataqueStr);
 				int nuevoAtaque = (int) Math.ceil(ataque/2.0);
-				caracteristicasPersonaje.setProperty("ataque", String.valueOf(nuevoAtaque));
-				caracteristicas.put(nombrePersonaje, caracteristicasPersonaje);
-            }
-        }
-		
-		batalla.setCaracteristicas(caracteristicas);
+				properties.setProperty("ataque", String.valueOf(nuevoAtaque));
+			}
+		}
+		batalla.setCaracteristicas(personajesAux);
 	}
 	
-
 	@Override
 	public String getNombre() {
 		return "Debilitar";
@@ -35,6 +36,12 @@ public class Debilitar implements Habilidad {
 	@Override
 	public String getDescripcion() {
 		return "Reduce el ataque del rival a la mitad";
+	}
+
+	@Override
+	public void setBatallaInicial(Batalla batalla) {
+		this.batalla=batalla;
+		
 	}
 
 }
