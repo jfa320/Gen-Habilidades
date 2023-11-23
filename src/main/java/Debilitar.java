@@ -5,15 +5,16 @@ import tp.pp2.rpg.experience.core.entidades.Batalla;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
 public class Debilitar implements Habilidad {
-
+	private Batalla batalla;
+	
 	@Override
-	public void realizar(Batalla batalla) {
-		realizarDebilitamiento(batalla);
+	public void realizar() {
+		realizarDebilitamiento();
 	}
 
-	private void realizarDebilitamiento(Batalla batalla) {
+	private void realizarDebilitamiento() {
 		String personajeActual = batalla.getPersonajeActual();
-		Map<String, Properties> personajesAux = batalla.getPersonajes();
+		Map<String, Properties> personajesAux = batalla.getCaracteristicas();
 		for (Map.Entry<String, Properties> entry : personajesAux.entrySet()) {
 			String key = entry.getKey();
 			Properties properties = entry.getValue();
@@ -24,7 +25,7 @@ public class Debilitar implements Habilidad {
 				properties.setProperty("ataque", String.valueOf(nuevoAtaque));
 			}
 		}
-		batalla.setPersonajes(personajesAux);
+		batalla.setCaracteristicas(personajesAux);
 	}
 
 
@@ -36,6 +37,12 @@ public class Debilitar implements Habilidad {
 	@Override
 	public String getDescripcion() {
 		return "Reduce el ataque del rival a la mitad";
+	}
+
+	@Override
+	public void setBatallaInicial(Batalla batalla) {
+		this.batalla=batalla;
+		
 	}
 
 }

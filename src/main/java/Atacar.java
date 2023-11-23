@@ -6,9 +6,10 @@ import tp.pp2.rpg.experience.core.entidades.Batalla;
 import tp.pp2.rpg.experience.core.entidades.interfaces.Habilidad;
 
 public class Atacar implements Habilidad {
-
+	private Batalla batalla;
+	
 	@Override
-	public void realizar(Batalla batalla) {
+	public void realizar() {
 		int personajeActual = batalla.getPersonajeActual();
 		int danio = Integer.valueOf(batalla.getPersonajes().get(personajeActual).getProperty("ataque"));
 		ArrayList<Properties> personajesAux = batalla.getPersonajes();
@@ -32,7 +33,12 @@ public class Atacar implements Habilidad {
 
 	@Override
 	public String getDescripcion() {
-		return "Infringe puntos de daño segun la caracteristica de ataque del personaje";
+		return "Infringe puntos de daï¿½o segun la caracteristica de ataque del personaje";
 	}
 
+	@Override
+	public void setBatallaInicial(Batalla batalla) {
+		this.batalla=batalla;
+		
+	}
 }

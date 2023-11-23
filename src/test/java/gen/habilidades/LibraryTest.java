@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 
 public class LibraryTest {
     @Test public void someLibraryMethodReturnsTrue() {
-       
+    	Object o=1;
+    	System.out.println(o.equals(1));
+    	System.out.println((int)o);
     }
 }
